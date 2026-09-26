@@ -1,0 +1,11 @@
+data/
+.env
+__pycache__/
+*.pyc
+firmware/RoadRelayWiFi/arduino_secrets.h
+.DS_Store
+**/.DS_Store
+.vercel/
+node_modules/
+public/
+.presentation-build/

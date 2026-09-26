@@ -1,0 +1,7 @@
+{
+  "name": "roadrelay",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": { "build": "node scripts/build-web.mjs", "test:web": "node --test tests/hosted-demo.test.mjs" },
+  "engines": { "node": ">=22" }
+}

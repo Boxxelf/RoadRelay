@@ -9,6 +9,7 @@ const colors = {red:'#c2443c', amber:'#c18a30', green:'#36775d', gray:'#98a6b6'}
 const date = t => new Date(t * 1000).toLocaleString('en-US', {month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
 const toast = (message) => { $('#toast').textContent=message; $('#toast').hidden=false; clearTimeout(toast.timer); toast.timer=setTimeout(()=>$('#toast').hidden=true,6500); };
 async function api(path, body) {
+  if(window.roadRelayDemo)return window.roadRelayDemo.api(path,body);
   const res = await fetch(path, body === undefined ? {} : {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   const data=await res.json(); if (!res.ok) throw new Error(data.error || 'Request failed.'); return data;
 }
@@ -18,6 +19,7 @@ function colorFor(peak) { return peak>.6?colors.red:peak>.2?colors.amber:colors.
 function openRecords() { return state.incidents.filter(x=>!['Dismissed','Repair completed'].includes(x.status)); }
 function clearReplay() { clearInterval(replayTimer); replayTimer=null; }
 async function setMode(next) {
+  if(window.roadRelayDemo && next==='live'){window.roadRelayDemo.openLocal();return;}
   if(next===mode && state) return;
   mode=next; modeGeneration++; selected=null; evidence=null; paused=false; recordedView=false; renderKey=''; clearReplay();
   // Clear the previous source immediately while the next workspace loads.
@@ -88,7 +90,7 @@ function render() {
       $('#reading-note').textContent='LED state includes the original 1.5 s hold. No signal is not proof of a safe road.';
     }
   }
-  $('#footer-status').textContent='Saved on this computer · simulated location';
+  $('#footer-status').textContent=window.roadRelayDemo?'Hosted simulation · saved in this browser':'Saved on this computer · simulated location';
   if($('#setup-dialog').open) renderDevices();
 }
 function renderQueue() {
@@ -187,6 +189,7 @@ function renderDevices(){
   $('#device-list').innerHTML=rows.join('')||'No sensor connected yet. The live workspace stays empty until real telemetry arrives.';
 }
 async function showSetup(){
+  if(window.roadRelayDemo){window.roadRelayDemo.openLocal();return;}
   modal('setup-dialog');renderDevices();
   try{const config=await api('/api/setup');receiverToken=config.token;$('#receiver-token').textContent=config.token;$('#udp-status').textContent=`UDP port ${config.udp_port} · Receiver: ${state?.udp_status||'Checking'}`;}
   catch(e){$('#receiver-token').textContent='Receiver unavailable';toast(e.message);}
@@ -214,7 +217,7 @@ $('#pass-btn').addEventListener('click',async()=>{
     await refresh(true);
   }catch(e){toast(e.message);}finally{b.disabled=false;}
 });
-$('#export-btn').addEventListener('click',()=>{const a=document.createElement('a');a.href=`/api/export?mode=${mode}`;a.download=`roadrelay-${mode}-${new Date().toISOString().slice(0,10)}.csv`;a.click();toast(`${mode==='live'?'Live':'Synthetic'} records exported with source labels.`);});
+$('#export-btn').addEventListener('click',async()=>{if(window.roadRelayDemo){try{await window.roadRelayDemo.exportCsv();toast('Synthetic evidence exported with source labels.');}catch(e){toast(e.message);}return;}const a=document.createElement('a');a.href=`/api/export?mode=${mode}`;a.download=`roadrelay-${mode}-${new Date().toISOString().slice(0,10)}.csv`;a.click();toast(`${mode==='live'?'Live':'Synthetic'} records exported with source labels.`);});
 $('#pause-btn').addEventListener('click',()=>{
   if(recordedView && mode==='live'){clearReplay();recordedView=false;paused=false;$('#pause-btn').textContent='Pause chart';render();return;}
   if(mode==='live'){paused=!paused;$('#pause-btn').textContent=paused?'Resume chart':'Pause chart';render();return;}

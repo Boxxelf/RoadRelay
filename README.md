@@ -1,5 +1,15 @@
 # RoadRelay
 
+## Public website on Vercel
+
+The public website serves the company homepage at `/` and an interactive synthetic dashboard at `/dashboard`. Inspection assignments, status changes and rule-based briefs are stored only in the visitor's browser. The 20 vehicles are a synthetic demonstration, not customer deployments or live sensor readings. AI is disabled in this hosted demo.
+
+Run `npm run build` to generate the allowlisted `public/` directory. Vercel reads `vercel.json` and deploys that directory. Run `npm run test:web` to check the hosted workflow. `python3 scripts/export-demo.py` regenerates only fresh synthetic fixture data using a temporary database.
+
+Real Arduino Wi-Fi telemetry still requires the local Python application below: Vercel's static demo does not receive UDP or share the local SQLite database. **Local prototype** opens `http://127.0.0.1:8765/dashboard` on the visitor's own computer; start the local server first.
+
+For a fresh clone, copy `firmware/RoadRelayWiFi/arduino_secrets.example.h` to `arduino_secrets.h`, then fill in your private settings. Never commit that file, `.env`, receiver tokens, or the `data/` directory. A previous public commit contained local credentials and data: removing them from the current revision does not remove historical copies. Rotate the exposed Wi-Fi credentials and receiver token before relying on them again.
+
 An English-language, local road-inspection dashboard for Origin Weekend 2026, Prompt D.
 
 **Real toy-car impacts. Simulated location. Human-reviewed inspections.** The original `../originweekend_sep25.ino` is unchanged. The separate Wi-Fi sketch preserves its measurement thresholds, LED hold and LCD logic; the startup brand reads RoadRelay.

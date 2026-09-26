@@ -1,0 +1,12 @@
+data
+firmware
+.env
+.env.*
+*.png
+.presentation-build
+presentation
+tests
+__pycache__
+serial_bridge.py
+server.py
+start.command

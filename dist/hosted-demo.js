@@ -34,5 +34,5 @@
     },
     async exportCsv(){const data=await ready;const rows=['source,location_source,device,received_unix,impact_g,led_level'];for(const item of Object.values(data.details))for(const s of item.samples)rows.push(`synthetic,simulated,${s.device},${s.received},${s.impact},${s.level}`);const url=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));const a=document.createElement('a');a.href=url;a.download='roadrelay-synthetic-evidence.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
   };
-  document.addEventListener('DOMContentLoaded',()=>{document.querySelector('#connect-btn').textContent='Local sensor setup ↗';document.querySelector('#live-mode').textContent='Local prototype ↗';document.querySelector('#live-mode').title='Opens the separately running application on this computer';});
+  document.addEventListener('DOMContentLoaded',()=>{document.querySelector('#connect-btn').textContent='Local sensor setup ';document.querySelector('#live-mode').textContent='Local prototype ';document.querySelector('#live-mode').title='Opens the separately running application on this computer';});
 })();

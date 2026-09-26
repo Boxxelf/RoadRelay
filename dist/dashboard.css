@@ -8,3 +8,37 @@ main{max-width:1700px;padding:0 4%}.page-heading{position:relative;background:#0
 @media(min-width:1800px){.page-heading:before{inset:0 calc((1700px - 100vw)/2 - 70px)}}
 @media(max-width:1100px){main{padding-inline:25px}.topbar{padding-inline:25px}.workbench{grid-template-columns:minmax(0,1.3fr) minmax(305px,1fr)}.panel-heading{padding:18px}.queue-item{padding:20px 18px}.queue-item h3{font-size:18px}.metrics>div{padding-inline:18px}.metrics>div>div>span{font-size:10px}.prototype-controls>div:first-child{width:100%;margin-right:0}.prototype-controls{gap:15px}.prototype-controls p{max-width:none}.prototype-controls .button{margin-left:auto}.page-heading{gap:20px}.mode-switch button{padding:9px 13px;font-size:11px}}
 @media(max-width:800px){.topbar{height:72px;padding-inline:18px}.brand{font-size:20px;gap:6px}.brandmark{width:24px}.brandmark svg{width:24px}.topbar .button{padding:9px 13px;font-size:11px}.page-heading{padding-top:27px;padding-bottom:30px;gap:25px;align-items:stretch}.page-heading h1{font-size:48px}.page-heading:after{width:65%;right:-10%}.breadcrumb{margin-bottom:22px}.subheading{font-size:12px}.mode-switch{margin:0;width:100%;padding:4px}.mode-switch button{font-size:12px;padding:9px 12px}.source-notice{font-size:11px;padding:14px 0}.source-notice button{font-size:10px}main{padding-inline:17px}.metrics{padding:25px 0;gap:23px}.metrics strong{font-size:35px}.metric-label{font-size:11px}.metrics>div>div{gap:8px}.metrics>div>div>span{font-size:10px}.workbench{grid-template-columns:1fr}.prototype-controls{padding:18px 15px;gap:15px;margin-bottom:20px}.prototype-controls>div:first-child{width:100%}.prototype-controls label{flex:1;min-width:100px}.prototype-controls select{width:100%}.prototype-controls #device-id{width:100%}.prototype-controls .button{width:100%;margin:0}.prototype-controls label:first-of-type{flex:2}.prototype-controls p{font-size:12px}.panel-heading h2{font-size:16px}.outline-badge{font-size:9px}.queue-item h3{font-size:20px}.queue-meta{font-size:11px}.signal-reading strong{font-size:34px;letter-spacing:-1.5px}.signal-reading strong small{font-size:16px}.signal-footer{font-size:10px}.chart-actions .button{font-size:11px}.map-footer,.map-footer button{font-size:10px}.detail-title{font-size:28px}.detail-stats strong{font-size:26px}.top-actions .avatar{display:none}}
+/* Mobile dashboard: comfortable targets, no focus zoom, contained drawers. */
+@media(max-width:800px){
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  button,.button,.icon-button,.mode-switch button,.source-notice button,.queue-filter button,.map-tools button,.map-footer button,.app-footer button{min-height:44px}
+  .icon-button,.map-tools button{min-width:44px}
+  .mode-switch button{padding:11px 8px}
+  .button,.topbar .button,.chart-actions .button,.source-notice button{font-size:13px}
+  .topbar{height:auto;min-height:72px;gap:12px;padding-block:12px}
+  .page-heading h1{font-size:clamp(32px,11.4vw,48px)}
+  .top-actions .button{max-width:150px;white-space:normal}
+  .source-notice{flex-wrap:wrap;font-size:13px;gap:8px}
+  #source-text{flex:1;min-width:180px}
+  .source-notice button{margin-left:auto}
+  .queue-filter{flex-wrap:wrap;gap:8px}
+  .queue-filter>span{margin-left:auto;font-size:11px}
+  .queue-item .road,.queue-meta,.panel-heading p{font-size:13px}
+  .map-footer{flex-wrap:wrap;gap:8px}.map-footer button{margin-left:auto}
+  .signal-panel .panel-heading{flex-wrap:wrap;gap:16px}
+  .chart-actions{flex-direction:row;flex-wrap:wrap;width:100%;gap:10px}
+  .chart-actions .button{padding:10px 14px}
+  .detail-dialog,.modal{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  .drawer-head{position:sticky;top:0;z-index:2;background:#fff;padding:16px 20px 10px}
+  #detail-content{padding:5px 20px calc(24px + env(safe-area-inset-bottom))}
+  .detail-section input,.detail-section select,.detail-section textarea,.prototype-controls input,.prototype-controls select{font-size:16px;min-height:48px}
+  .detail-section p,.modal p{font-size:14px}
+  .detail-provenance{font-size:12px}
+  .brief-buttons{display:grid;grid-template-columns:1fr}
+  .detail-section .button{font-size:14px}
+  .fine-print{font-size:12px!important}
+  .modal{max-height:calc(100dvh - 24px);padding:20px}
+  #fleet-list{overflow-x:auto}
+  .app-footer{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+  #toast{bottom:calc(16px + env(safe-area-inset-bottom))}
+}

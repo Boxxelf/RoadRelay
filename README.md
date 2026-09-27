@@ -131,6 +131,7 @@ A normal pass contributes to coverage but creates no candidate. Pausing or repla
 ```mermaid
 flowchart TB
   subgraph LOCAL["Local hardware application"]
+    direction TB
     S["MPU6050<br/>3-axis acceleration"] -->|I2C| A["UNO R4 WiFi<br/>impact + LED state"]
     A --> H["LCD + green / yellow / red LEDs"]
     A -->|"12-sample UDP batches :4210"| R["Python receiver<br/>token + schema + sequence checks"]
@@ -142,6 +143,7 @@ flowchart TB
     UI -->|"Explicit brief request"| AI["Optional server-side AI call"]
   end
   subgraph PUBLIC["Public Vercel website"]
+    direction TB
     BUILD["Allowlisted static build"] --> SITE["Company homepage"]
     BUILD --> DEMO["Synthetic dashboard"]
     FIXTURE["demo-data.json<br/>fresh synthetic fixture"] --> DEMO

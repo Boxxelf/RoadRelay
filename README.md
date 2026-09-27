@@ -198,11 +198,31 @@ Only one live pass can be active at a time in this MVP. Receiving packets from m
 
 The prototype uses an **UNO R4 WiFi, MPU6050 breakout, 16×2 parallel LCD, three LEDs with current-limiting resistors, a contrast potentiometer, and a toy car**.
 
-> **Power correction for the supplied illustration:** the 9 V battery appears connected to the same rail as the board's 5 V pin. **Do not reproduce that power connection.** Use USB-C power for the bench demo. An external 9 V supply belongs at the appropriate barrel jack or VIN input with correct polarity, never directly on the 5 V rail. Verify breakout voltage compatibility and current limits against the exact components. The board's documented VIN range is 6–24 V. [Arduino hardware specification][arduino]
+### The physical prototype
+
+![RoadRelay bench prototype with an Arduino UNO R4 WiFi, MPU6050 breakout, wired breadboard, illuminated green indicator, and a 16 by 2 LCD showing NORMAL ROAD and Impact: 0.03g](docs/images/hardware-prototype.jpeg)
+
+*The assembled RoadRelay bench prototype, photographed by the project creator. The LCD shows the firmware's original “NORMAL ROAD” label and an impact reading of approximately 0.03 g, alongside the illuminated green indicator.*
+
+The MPU6050 supplies acceleration measurements to the Arduino; the board calculates impact and drives the LCD and three status LEDs. This makes the sensing pipeline visible before an observation reaches the dashboard. In product terms, the green state means **“No above-threshold anomaly detected during this pass.”** The display wording is a prototype label, not a certification that the road is safe. This photograph documents the physical build; it does not establish GPS accuracy, network connectivity, or field detection performance.
+
+### Breadboard layout reference
+
+> **Power correction for both supplied diagrams:** the breadboard illustration and circuit schematic show a 9 V battery connected to the board's 5 V rail or pin. **Do not reproduce that power connection.** Use USB-C power for the bench demo. An external 9 V supply belongs at the appropriate barrel jack or VIN input with correct polarity, never directly on the 5 V rail. Verify breakout voltage compatibility and current limits against the exact components. The board's documented VIN range is 6–24 V. [Arduino hardware specification][arduino]
 
 ![User-supplied breadboard reference; its battery power wiring is not an approved wiring guide](docs/images/breadboard-reference.jpg)
 
 *User-supplied Fritzing-style reference image. The original is preserved; the warning above and the firmware pin table below take precedence as documentation. The physical assembly has not been electrically certified.*
+
+### Circuit schematic reference
+
+![User-supplied RoadRelay circuit schematic showing the UNO R4 WiFi, MPU6050, parallel LCD, three LED branches, and contrast potentiometer; the depicted 9 V to 5 V connection requires correction](docs/images/circuit-schematic.png)
+
+*The schematic complements the breadboard view by showing signal connections: the MPU6050 communicates over I2C, the LCD uses a four-bit parallel interface, and three digital outputs drive the LED branches through resistors. A potentiometer adjusts LCD contrast.*
+
+This is the creator's original draft schematic, preserved for design documentation. **Its 9 V-to-5 V power connection must be corrected before using it as a construction guide.** Component labels and resistor values in the drawing are not verified operating measurements. Use the firmware mapping below to review signal assignments, and check the actual modules' electrical requirements before assembly.
+
+### Firmware pin mapping
 
 | Connection | Current firmware mapping |
 | --- | --- |
@@ -697,7 +717,7 @@ Research checked September 26, 2026. Agency names and local-road markers are ill
 ### Project and visual provenance
 
 - Algorithms and implementation figures are derived from [the firmware](firmware/RoadRelayWiFi/RoadRelayWiFi.ino), [local receiver](server.py), [hosted adapter](dist/hosted-demo.js), and [checked-in synthetic fixture](dist/demo-data.json).
-- The original sensor sketch and the breadboard reference were supplied by the project creator. The separate WiFi sketch retains the original sensor thresholds, LCD behavior, and LED hold.
+- The original sensor sketch, breadboard reference, circuit schematic, and physical prototype photograph were supplied by the project creator. Both wiring diagrams are preserved as draft references with the power correction explicitly noted. The separate WiFi sketch retains the original sensor thresholds, LCD behavior, and LED hold.
 - Homepage, queue, and assignment images are user-supplied RoadRelay screenshots. Queue/assignment images show the synthetic workspace, not a real municipal deployment.
 - The homepage's visual direction references [United Carriers](https://unitedcarriers.com/); RoadRelay's copy, positioning, and interface implementation are project-specific. The globe is illustrative, not live fleet tracking.
 - No customer testimonials, interviews, field-performance statistics, or signed partnerships are invented.
